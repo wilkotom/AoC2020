@@ -3,14 +3,19 @@ def get_pairs(nums: list[int]) -> list[int]:
 
 
 def get_contiguous(nums: list[int], target: int) -> list[int]:
-    if not nums:
-        return []
-    for i in range(len(nums)):
-        if (total := sum(nums[0:i])) == target:
-            return nums[0:i]
-        elif total > target:
-            break
-    return get_contiguous(nums[1:], target)
+    total = sum(nums)
+    left = 0
+    right = len(nums) - 1
+    while total != target:
+        if total > target:
+            total -= nums[right]
+            right -=1
+        else:
+            total -= nums[left]
+            total += nums[right+1]
+            left += 1
+            right += 1
+    return(nums[left:right])
 
 
 def main(filename: str, preamble_size: int) -> None:
@@ -21,7 +26,7 @@ def main(filename: str, preamble_size: int) -> None:
             solution = val
             break
     print(f"Part 1: {solution}")
-    contiguous = get_contiguous(numbers[0:numbers.index(solution)], solution)
+    contiguous = get_contiguous_2(numbers[0:numbers.index(solution)], solution)
     print(f"Part 2: {min(contiguous) + max(contiguous)}")
 
 

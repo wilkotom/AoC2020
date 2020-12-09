@@ -14,7 +14,7 @@ def run_program(prog: list[list[str, int]]) -> tuple[bool, int]:
     while instruction not in visited and instruction < len(prog):
         visited.add(instruction)
         if prog[instruction][0] == "nop":
-            instruction +=1
+            instruction += 1
         elif prog[instruction][0] == "acc":
             accumulator += prog[instruction][1]
             instruction += 1
@@ -32,7 +32,7 @@ def main(filename: str) -> None:
             possible_flips.append(i)
 
     for flip in possible_flips:
-        new_program = read_instructions(filename)
+        new_program = [x.copy() for x in program]
         new_program[flip][0] = "jmp" if new_program[flip][0] == "nop" else "nop"
         result, accumulator = run_program(new_program)
         if result is True:

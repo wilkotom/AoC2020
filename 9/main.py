@@ -6,8 +6,11 @@ def get_contiguous(nums: list[int], target: int) -> list[int]:
     if not nums:
         return []
     for i in range(len(nums)):
-        if sum(nums[0:i]) == target:
+        total = sum(nums[0:i])
+        if total == target:
             return nums[0:i]
+        elif total > target:
+            break
     return get_contiguous(nums[1:], target)
 
 

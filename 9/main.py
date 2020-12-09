@@ -1,4 +1,3 @@
-
 def get_pairs(nums: list[int]) -> list[int]:
     return [nums[0] + n for n in nums[1:]] + get_pairs(nums[1:]) if nums else []
 
@@ -20,7 +19,7 @@ def main(filename: str, preamble_size: int) -> None:
             solution = val
             break
     print(f"Part 1: {solution}")
-    contiguous = get_contiguous(numbers, solution)
+    contiguous = get_contiguous(numbers[0:numbers.index(solution)], solution)
     print(f"Part 2: {min(contiguous) + max(contiguous)}")
 
 

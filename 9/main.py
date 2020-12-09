@@ -11,11 +11,10 @@ def get_contiguous(nums: list[int], target: int) -> list[int]:
             total -= nums[right]
             right -=1
         else:
-            total -= nums[left]
-            total += nums[right+1]
+            total += nums[right+1] - nums[left]
             left += 1
             right += 1
-    return(nums[left:right])
+    return nums[left:right]
 
 
 def main(filename: str, preamble_size: int) -> None:
@@ -26,7 +25,7 @@ def main(filename: str, preamble_size: int) -> None:
             solution = val
             break
     print(f"Part 1: {solution}")
-    contiguous = get_contiguous_2(numbers[0:numbers.index(solution)], solution)
+    contiguous = get_contiguous(numbers[0:numbers.index(solution)], solution)
     print(f"Part 2: {min(contiguous) + max(contiguous)}")
 
 

@@ -1,15 +1,18 @@
-from itertools import product
 from copy import deepcopy
 from typing import Callable
 
 
 def get_adjacent_occupants(grid: list[str], row: int, seat: int) -> int:
-    cols = filter(lambda n: 0 <= n < len(grid[0]), [seat + x for x in [-1, 0, 1]])
-    seats = filter(lambda n: 0 <= n < len(grid), [row + x for x in [-1, 0, 1]])
-    neighbours = filter(lambda x: x != (row, seat), product(seats, cols))
     count = 0
-    for square in neighbours:
-        count += 1 if grid[square[0]][square[1]] == "#" else 0
+    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    for direction in directions:
+        pos = (row + direction[0], seat + direction[1])
+        if 0 <= pos[0] < len(grid) and 0 <= pos[1] < len(grid[0]):
+            try:
+                count += 1 if grid[pos[0]][pos[1]] == "#" else 0
+            except IndexError:
+                print(pos)
+                raise
     return count
 
 

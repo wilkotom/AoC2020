@@ -2,9 +2,6 @@ from itertools import product
 from copy import deepcopy
 from typing import Callable
 
-directions = filter(lambda y: not y[0] == y[1] == 0,
-                    product([-1, 0, 1], [-1, 0, 1]))
-
 
 def get_adjacent_occupants(grid: list[str], row: int, seat: int) -> int:
     cols = filter(lambda n: 0 <= n < len(grid[0]), [seat + x for x in [-1, 0, 1]])
@@ -17,6 +14,7 @@ def get_adjacent_occupants(grid: list[str], row: int, seat: int) -> int:
 
 
 def get_visible_occupants(grid: list[str], row: int, seat: int) -> int:
+    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     count = 0
     for direction in directions:
         multiplier = 1
